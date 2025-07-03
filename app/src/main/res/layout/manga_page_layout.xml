@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pageContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical">
+
+    <!-- Single Page View (Portrait Mode) -->
+    <com.example.mangareader.ZoomableImageView
+        android:id="@+id/singlePageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:visibility="visible" />
+
+    <!-- Double Page Container (Landscape Mode) -->
+    <LinearLayout
+        android:id="@+id/doublePageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <!-- Left Page -->
+        <com.example.mangareader.ZoomableImageView
+            android:id="@+id/leftPageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+
+        <!-- Right Page -->
+        <com.example.mangareader.ZoomableImageView
+            android:id="@+id/rightPageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+</LinearLayout>

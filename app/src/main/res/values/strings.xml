@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Manga Reader</string>
+    <string name="back_button_desc">Back</string>
+    <string name="settings_button_desc">Settings</string>
+    <string name="open_file">Open File</string>
+    <string name="select_page_advance">Select Page Advance</string>
+    <string name="select_page_mode">Select Page Mode</string>
+    <string name="left_to_right">Left to Right</string>
+    <string name="right_to_left">Right to Left</string>
+    <string name="portrait_mode">Portrait Mode</string>
+    <string name="landscape_mode">Landscape Mode</string>
+    <string name="reset_zoom">Reset Zoom</string>
+    <string name="tap_to_open">Tap here to open manga\nfrom documents</string>
+    <string name="page_indicator">%1$d / %2$d</string>
+    <string name="settings_title">Settings</string>
+    <string name="error_loading_manga">Error loading manga: %1$s</string>
+    <string name="permission_needed">Storage permission is needed to read manga files</string>
+</resources>
