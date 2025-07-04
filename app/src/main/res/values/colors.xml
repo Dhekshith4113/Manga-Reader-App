@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="divider_grey">#FFDDDDDD</color>
+    <color name="new_app_indicator">#FF666666</color>
+    <color name="textColorPrimary">#000000</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="enable">#008800</color>
+    <color name="disable">#880000</color>
 </resources>

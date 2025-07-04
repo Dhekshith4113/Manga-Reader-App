@@ -6,53 +6,53 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/backBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:id="@+id/settingsBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Settings Button"
+            android:src="@drawable/ic_settings"
             android:background="@android:color/transparent"
-            android:contentDescription="Back Button"
-            android:src="@drawable/ic_arrow_back"
             app:tint="@color/textColorPrimary" />
 
         <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:scrollbars="vertical">
 
             <TextView
                 android:id="@+id/mangaTitle"
-                style="@style/AppTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Manga Reader" />
+                android:rotation="270"
+                android:text="Manga Reader"
+                style="@style/AppTitleText"/>
 
         </HorizontalScrollView>
 
         <ImageButton
-            android:id="@+id/settingsBtn"
+            android:id="@+id/backBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:contentDescription="Back Button"
+            android:src="@drawable/ic_arrow_back"
             android:background="@android:color/transparent"
-            android:contentDescription="Settings Button"
-            android:src="@drawable/ic_settings"
             app:tint="@color/textColorPrimary" />
 
     </LinearLayout>
@@ -60,12 +60,12 @@
     <!-- Middle Content Area -->
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bottomBar"
+        app:layout_constraintStart_toEndOf="@+id/topBar"
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- ViewPager for Manga Pages -->
         <androidx.viewpager2.widget.ViewPager2
@@ -79,13 +79,13 @@
         <!-- Empty State View -->
         <TextView
             android:id="@+id/emptyView"
-            style="@style/AppBaseText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:text="Tap here to open manga\nfrom documents"
+            style="@style/AppBaseText"
             android:visibility="visible" />
 
     </FrameLayout>
@@ -93,47 +93,47 @@
     <!-- Bottom Bar -->
     <LinearLayout
         android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/leftBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@android:color/transparent"
             android:contentDescription="Left Button"
             android:src="@drawable/ic_arrow_back"
+            android:background="@android:color/transparent"
             app:tint="@color/textColorPrimary" />
 
         <TextView
             android:id="@+id/pageIndicator"
-            style="@style/AppBaseText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="8dp"
-            android:text="0 / 0" />
+            android:text="0 / 0"
+            style="@style/AppBaseText"/>
 
         <ImageButton
             android:id="@+id/rightBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@android:color/transparent"
             android:contentDescription="Right Button"
             android:src="@drawable/baseline_arrow_forward_24"
+            android:background="@android:color/transparent"
             app:tint="@color/textColorPrimary" />
 
         <Button
             android:id="@+id/zoomResetBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
+            android:layout_marginHorizontal="2dp"
             android:text="Reset Zoom"
             style="@style/AppBaseText"
             android:background="@drawable/button_outline"/>
