@@ -20,7 +20,7 @@
         android:paddingHorizontal="16dp">
 
         <ImageButton
-            android:id="@+id/backButton"
+            android:id="@+id/backBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -43,7 +43,7 @@
             android:gravity="center"/>
 
         <ImageButton
-            android:id="@+id/settingsButton"
+            android:id="@+id/settingsBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -96,6 +96,15 @@
         android:orientation="horizontal"
         android:paddingHorizontal="16dp">
 
+        <ImageButton
+            android:id="@+id/leftBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#FFFFFF" />
+
         <TextView
             android:id="@+id/pageIndicator"
             android:layout_width="0dp"
@@ -104,10 +113,20 @@
             android:text="0 / 0"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
+            android:gravity="center"
             android:padding="8dp"/>
 
+        <ImageButton
+            android:id="@+id/rightBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
+            android:src="@drawable/baseline_arrow_forward_24"
+            app:tint="#FFFFFF" />
+
         <Button
-            android:id="@+id/zoomResetButton"
+            android:id="@+id/zoomResetBtn"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:background="@drawable/button_background"
