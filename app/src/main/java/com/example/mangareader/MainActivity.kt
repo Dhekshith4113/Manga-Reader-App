@@ -76,20 +76,6 @@ class MainActivity : AppCompatActivity() {
             SharedPreferencesManager.setCurrentPage(this, 0)
             loadDocument(data)
         }
-
-        val uriString = SharedPreferencesManager.loadUriString(this)
-
-        if (!uriString.isNullOrEmpty()) {
-            val uri = Uri.parse(uriString)
-            SharedPreferencesManager.saveUriString(this, uri)
-            try {
-                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            } catch (e: SecurityException) {
-                Toast.makeText(this, "This file is not accessible", Toast.LENGTH_SHORT).show()
-            }
-
-            loadDocument(uri!!)
-        }
     }
 
     private fun initViews() {
