@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MangaPagerAdapter(
     private val pages: List<Bitmap>,
-    private val isDoublePage: Boolean
+    private val isDoublePage: Boolean,
+    private val isRTL: Boolean
 ) : RecyclerView.Adapter<MangaPagerAdapter.PageViewHolder>() {
 
     inner class PageViewHolder(val imageView: ImageView) : RecyclerView.ViewHolder(imageView)
@@ -31,21 +32,37 @@ class MangaPagerAdapter(
     override fun onBindViewHolder(holder: PageViewHolder, position: Int) {
         val imageView = holder.imageView as ZoomImageView
 
-        if (isDoublePage) {
+        if (isDoublePage && isRTL) {
+            if (position == (pages.size - 1) / 2) {
+                val left = pages.getOrNull(position * 2)
+                val right = pages.getOrNull(-1)
+
+                val merged = mergeBitmapsSideBySide(imageView.context, left, right)
+                imageView.setImageBitmap(merged)
+                imageView.setFitMode(ZoomImageView.FitMode.FIT_TO_WIDTH)
+            } else {
+                val left = pages.getOrNull(position * 2)
+                val right = pages.getOrNull(position * 2 + 1)
+
+                val merged = mergeBitmapsSideBySide(imageView.context, left, right)
+                imageView.setImageBitmap(merged)
+                imageView.setFitMode(ZoomImageView.FitMode.FIT_TO_WIDTH)
+            }
+        } else if (isDoublePage) {
             if (position == 0) {
                 val left = pages.getOrNull(-1)
                 val right = pages.getOrNull(position)
 
                 val merged = mergeBitmapsSideBySide(imageView.context, left, right)
                 imageView.setImageBitmap(merged)
-                imageView.setFitMode(ZoomImageView.FitMode.FIT_TO_HEIGHT)
+                imageView.setFitMode(ZoomImageView.FitMode.FIT_TO_WIDTH)
             } else {
-                val left = pages.getOrNull(position * 2)
-                val right = pages.getOrNull(position * 2 - 1)
+                val left = pages.getOrNull(position * 2 - 1)
+                val right = pages.getOrNull(position * 2)
 
                 val merged = mergeBitmapsSideBySide(imageView.context, left, right)
                 imageView.setImageBitmap(merged)
-                imageView.setFitMode(ZoomImageView.FitMode.FIT_TO_HEIGHT)
+                imageView.setFitMode(ZoomImageView.FitMode.FIT_TO_WIDTH)
             }
         } else {
             imageView.setImageBitmap(pages[position])
@@ -57,7 +74,6 @@ class MangaPagerAdapter(
 
     override fun getItemCount(): Int {
         return if (isDoublePage) {
-            // If odd number of pages, last page will be solo
             (pages.size + 1) / 2
         } else {
             pages.size
@@ -77,6 +93,7 @@ class MangaPagerAdapter(
         canvas.drawBitmap(left, 0f, 0f, null)
         canvas.drawBitmap(right, left.width.toFloat(), 0f, null)
 
-        return result
+        val matrix = Matrix().apply { postRotate(90f) }
+        return Bitmap.createBitmap(result, 0, 0, result.width, result.height, matrix, true)
     }
 }

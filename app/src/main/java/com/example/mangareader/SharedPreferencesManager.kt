@@ -8,7 +8,7 @@ object SharedPreferencesManager {
 
     private const val PREFS_NAME = "MangaReaderPrefs"
     private const val KEY_LANDSCAPE_MODE_ENABLED = "landscape_mode_enabled"
-    private const val KEY_LEFT_TO_RIGHT_ENABLED = "left_to_right_enabled"
+    private const val KEY_RIGHT_TO_LEFT_ENABLED = "left_to_right_enabled"
     private const val KEY_RECREATE_ENABLED = "recreate_enabled"
     private const val KEY_LOAD_FILE_ENABLED = "load_file_enabled"
     private const val KEY_URI_STRING = "uri_string"
@@ -25,12 +25,12 @@ object SharedPreferencesManager {
         getPrefs(context).edit().putBoolean(KEY_LANDSCAPE_MODE_ENABLED, enabled).apply()
     }
 
-    fun isLTR(context: Context): Boolean {
-        return getPrefs(context).getBoolean(KEY_LEFT_TO_RIGHT_ENABLED, true)
+    fun isRTL(context: Context): Boolean {
+        return getPrefs(context).getBoolean(KEY_RIGHT_TO_LEFT_ENABLED, true)
     }
 
     fun setRTL(context: Context, enabled: Boolean) {
-        getPrefs(context).edit().putBoolean(KEY_LEFT_TO_RIGHT_ENABLED, enabled).apply()
+        getPrefs(context).edit().putBoolean(KEY_RIGHT_TO_LEFT_ENABLED, enabled).apply()
     }
 
     fun isRecreateEnabled(context: Context): Boolean {
@@ -55,5 +55,13 @@ object SharedPreferencesManager {
 
     fun saveUriString(context: Context, uri: Uri?) {
         getPrefs(context).edit().putString(KEY_URI_STRING, uri?.toString()).apply()
+    }
+
+    fun setCurrentPage(context: Context, page: Int) {
+        getPrefs(context).edit().putInt("current_page", page).apply()
+    }
+
+    fun getCurrentPage(context: Context): Int {
+        return getPrefs(context).getInt("current_page", 0)
     }
 }

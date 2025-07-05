@@ -1,16 +1,12 @@
 package com.example.mangareader
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.OpenableColumns
 import android.view.View
 import android.widget.*
@@ -39,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private val openFileLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         SharedPreferencesManager.saveUriString(this, uri)
+        SharedPreferencesManager.setCurrentPage(this, 0)
         uri?.let { loadDocument(it) }
     }
 
@@ -58,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        isRTL = SharedPreferencesManager.isLTR(this)
+        isRTL = SharedPreferencesManager.isRTL(this)
         isDoublePage = SharedPreferencesManager.isDoublePageEnabled(this)
 
         initViews()
@@ -76,24 +73,22 @@ class MainActivity : AppCompatActivity() {
             } catch (e: SecurityException) {
                 Toast.makeText(this, "This file is not accessible", Toast.LENGTH_SHORT).show()
             }
+            SharedPreferencesManager.setCurrentPage(this, 0)
             loadDocument(data)
         }
 
-        if (SharedPreferencesManager.isLoadFileEnabled(this)) {
-            val uriString = SharedPreferencesManager.loadUriString(this)
+        val uriString = SharedPreferencesManager.loadUriString(this)
 
-            if (!uriString.isNullOrEmpty()) {
-                val uri = Uri.parse(uriString)
-                try {
-                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                } catch (e: SecurityException) {
-                    Toast.makeText(this, "This file is not accessible", Toast.LENGTH_SHORT).show()
-                }
-
-                Handler(Looper.getMainLooper()).post {
-                    loadDocument(uri!!)
-                }
+        if (!uriString.isNullOrEmpty()) {
+            val uri = Uri.parse(uriString)
+            SharedPreferencesManager.saveUriString(this, uri)
+            try {
+                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            } catch (e: SecurityException) {
+                Toast.makeText(this, "This file is not accessible", Toast.LENGTH_SHORT).show()
             }
+
+            loadDocument(uri!!)
         }
     }
 
@@ -103,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         mangaTitle = findViewById(R.id.mangaTitle)
         pageIndicator = findViewById(R.id.pageIndicator)
 
-        adapter = MangaPagerAdapter(emptyList(), isDoublePage)
+        adapter = MangaPagerAdapter(emptyList(), isDoublePage, isRTL)
         viewPager.adapter = adapter
         viewPager.visibility = View.GONE
         emptyView.visibility = View.VISIBLE
@@ -154,12 +149,15 @@ class MainActivity : AppCompatActivity() {
         mangaTitle.text = fileName
 
         pages = loadPdfAsBitmaps(uri)
-        adapter = MangaPagerAdapter(pages, isDoublePage)
+        adapter = MangaPagerAdapter(pages, isDoublePage, isRTL)
         viewPager.adapter = adapter
 
         emptyView.visibility = View.GONE
         viewPager.visibility = View.VISIBLE
-        currentPage = 0
+
+        currentPage = SharedPreferencesManager.getCurrentPage(this).coerceIn(0, pages.lastIndex)
+        currentPage = if (isDoublePage) (currentPage + 1) / 2 else currentPage * 2
+        viewPager.setCurrentItem(currentPage, false)
 
         setupViewPager()
         updatePageIndicator()
@@ -177,31 +175,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
+        viewPager.orientation = if (isDoublePage) ViewPager2.ORIENTATION_VERTICAL else ViewPager2.ORIENTATION_HORIZONTAL
         viewPager.layoutDirection = if (isRTL) {
             View.LAYOUT_DIRECTION_RTL
         } else {
             View.LAYOUT_DIRECTION_LTR
         }
-        requestedOrientation = if (isDoublePage) {
-            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        } else {
-            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
-        SharedPreferencesManager.setDoublePageEnabled(this, isDoublePage)
-        SharedPreferencesManager.setRTL(this, isRTL)
-        // Force recreation after a slight delay to allow orientation to take effect
-        if (SharedPreferencesManager.isRecreateEnabled(this)) {
-            SharedPreferencesManager.setRecreateEnabled(this, false)
-            SharedPreferencesManager.setLoadFileEnabled(this, true)
-            Handler(Looper.getMainLooper()).postDelayed({
-                recreate()
-            }, 200)
-        }
     }
 
     private fun updatePageIndicator() {
         if (isDoublePage) {
-            pageIndicator.text = "${currentPage + 1}\n-\n${(pages.size / 2) + 1}"
+            pageIndicator.text = "${currentPage + 1} / ${(pages.size / 2) + 1}"
         } else {
             pageIndicator.text = "${currentPage + 1} / ${pages.size}"
         }
@@ -274,9 +258,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reloadViewPager() {
-        adapter = MangaPagerAdapter(pages, isDoublePage)
+        val effectivePages = if (isDoublePage && isRTL) {
+            pages.reversed()
+        } else {
+            pages
+        }
+
+        adapter = MangaPagerAdapter(effectivePages, isDoublePage, isRTL)
         viewPager.adapter = adapter
         setupViewPager()
+
+        // Start at correct position
+        val initialPage = if (isDoublePage && isRTL) {
+            (effectivePages.size - 1) / 2
+        } else 0
+
+        viewPager.setCurrentItem(initialPage, false)
     }
 
     private fun loadPdfAsBitmaps(uri: Uri): List<Bitmap> {

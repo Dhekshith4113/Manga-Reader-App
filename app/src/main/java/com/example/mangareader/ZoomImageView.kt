@@ -2,7 +2,6 @@ package com.example.mangareader
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.RectF
@@ -35,6 +34,7 @@ class ZoomImageView(context: Context, attrs: AttributeSet? = null) : AppCompatIm
         scaleType = ScaleType.MATRIX
         isClickable = true
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -129,30 +129,33 @@ class ZoomImageView(context: Context, attrs: AttributeSet? = null) : AppCompatIm
     fun setFitMode(mode: FitMode) {
         fitMode = mode
         post {
-            resetZoom()
+            applyInitialFit()
         }
     }
 
     private fun applyInitialFit() {
-        drawable?.let { drawable ->
-            val viewWidth = width.toFloat()
-            val viewHeight = height.toFloat()
-            val imageWidth = drawable.intrinsicWidth.toFloat()
-            val imageHeight = drawable.intrinsicHeight.toFloat()
+        val drawable = drawable ?: return
 
-            fitScale = when (fitMode) {
-                FitMode.FIT_TO_WIDTH -> viewWidth / imageWidth
-                FitMode.FIT_TO_HEIGHT -> viewHeight / imageHeight
-            }
+        val viewWidth = width.toFloat()
+        val viewHeight = height.toFloat()
+        val imageWidth = drawable.intrinsicWidth.toFloat()
+        val imageHeight = drawable.intrinsicHeight.toFloat()
 
-            val dx = (viewWidth - imageWidth * fitScale) / 2f
-            val dy = (viewHeight - imageHeight * fitScale) / 2f
-
-            matrix.reset()
-            matrix.postScale(fitScale, fitScale)
-            matrix.postTranslate(dx, dy)
-            invalidate()
+        fitScale = when (fitMode) {
+            FitMode.FIT_TO_WIDTH -> viewWidth / imageWidth
+            FitMode.FIT_TO_HEIGHT -> viewHeight / imageHeight
         }
+
+        scaleFactor = fitScale
+        matrix.reset()
+        matrix.postScale(fitScale, fitScale)
+
+        val dx = (viewWidth - imageWidth * fitScale) / 2f
+        val dy = (viewHeight - imageHeight * fitScale) / 2f
+        matrix.postTranslate(dx, dy)
+
+        imageMatrix = matrix
+        invalidate()
     }
 
     private fun fixTranslation() {
@@ -172,6 +175,13 @@ class ZoomImageView(context: Context, attrs: AttributeSet? = null) : AppCompatIm
             min > 0 -> -min
             max < viewSize -> viewSize - max
             else -> 0f
+        }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        post {
+            applyInitialFit()
         }
     }
 }
