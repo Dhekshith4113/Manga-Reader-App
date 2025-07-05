@@ -6,6 +6,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="40dp"
     tools:context=".MainActivity">
 
     <!-- Top Bar -->
@@ -13,7 +14,7 @@
         android:id="@+id/topBar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_margin="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,30 +22,30 @@
 
         <ImageButton
             android:id="@+id/settingsBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:contentDescription="Settings Button"
             android:src="@drawable/ic_settings"
             android:background="@android:color/transparent"
             app:tint="@color/textColorPrimary" />
 
-        <HorizontalScrollView
-            android:layout_width="50dp"
+        <ScrollView
+            android:layout_width="48dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scrollbars="vertical">
+            android:scrollbars="none">
 
             <TextView
                 android:id="@+id/mangaTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:rotation="270"
                 android:text="Manga Reader"
                 style="@style/AppTitleText"/>
 
-        </HorizontalScrollView>
+        </ScrollView>
 
         <ImageButton
             android:id="@+id/backBtn"
@@ -62,6 +63,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bottomBar"
         app:layout_constraintStart_toEndOf="@+id/topBar"
@@ -86,6 +88,7 @@
             android:gravity="center"
             android:text="Tap here to open manga\nfrom documents"
             style="@style/AppBaseText"
+            android:textColor="@color/new_app_indicator"
             android:visibility="visible" />
 
     </FrameLayout>
@@ -93,8 +96,9 @@
     <!-- Bottom Bar -->
     <LinearLayout
         android:id="@+id/bottomBar"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -115,9 +119,10 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginVertical="10dp"
             android:gravity="center"
             android:padding="8dp"
-            android:text="0 / 0"
+            android:text="0\n-\n0"
             style="@style/AppBaseText"/>
 
         <ImageButton
@@ -131,11 +136,12 @@
 
         <Button
             android:id="@+id/zoomResetBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="2dp"
-            android:text="Reset Zoom"
-            style="@style/AppBaseText"
+            android:layout_marginTop="10dp"
+            android:padding="0dp"
+            android:text="Reset\nZoom"
+            style="@style/AppButtonText"
             android:background="@drawable/button_outline"/>
 
     </LinearLayout>

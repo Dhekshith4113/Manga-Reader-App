@@ -1,99 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2A2A2A"
+    android:padding="18dp"
+    android:background="@drawable/dialog_background"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="16dp"
         android:text="Settings"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        style="@style/AppTitleText"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#404040" />
-
-    <TextView
-        android:id="@+id/openFileOption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="16dp"
-        android:text="Open File"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#404040" />
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_grey" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp">
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/btnRTL"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Right to Left"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="Open File"
+            app:srcCompat="@drawable/sharp_add_24"
+            android:background="@android:color/transparent"
+            app:tint="@color/textColorPrimary" />
 
-        <RadioButton
-            android:id="@+id/btnLTR"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/openFileOption"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Left to Right"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"/>
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Open File"
+            style="@style/AppBaseText"/>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#404040" />
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_grey" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="18dp"
-        android:paddingVertical="8dp">
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btnRTL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" Right to Left\n (Manga Style)"
+            style="@style/AppBaseText"/>
+
+        <RadioButton
+            android:id="@+id/btnLTR"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" Left to Right\n (Comic Style)"
+            style="@style/AppBaseText"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/btnSinglePage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Single Page"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"/>
+            android:text=" Single Page\n (Portrait)"
+            style="@style/AppBaseText"/>
 
         <RadioButton
             android:id="@+id/btnDoublePage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Double Page"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"/>
+            android:text=" Double Page\n (Landscape)"
+            style="@style/AppBaseText"/>
 
     </LinearLayout>
 

@@ -14,6 +14,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
             android:scrollbars="vertical">
 
             <TextView
@@ -62,6 +64,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,13 +82,14 @@
         <!-- Empty State View -->
         <TextView
             android:id="@+id/emptyView"
-            style="@style/AppBaseText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:text="Tap here to open manga\nfrom documents"
+            style="@style/AppBaseText"
+            android:textColor="@color/new_app_indicator"
             android:visibility="visible" />
 
     </FrameLayout>
@@ -95,6 +99,7 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,6 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
             android:gravity="center"
             android:padding="8dp"
             android:text="0 / 0" />
@@ -132,10 +138,10 @@
         <Button
             android:id="@+id/zoomResetBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
             android:text="Reset Zoom"
-            style="@style/AppBaseText"
+            style="@style/AppButtonText"
             android:background="@drawable/button_outline"/>
 
     </LinearLayout>
