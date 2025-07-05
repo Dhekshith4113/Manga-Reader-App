@@ -29,23 +29,16 @@
             android:background="@android:color/transparent"
             app:tint="@color/textColorPrimary" />
 
-        <ScrollView
+        <TextView
+            android:id="@+id/mangaTitle"
+            style="@style/AppTitleText"
             android:layout_width="48dp"
             android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
             android:layout_weight="1"
-            android:scrollbars="none">
-
-            <TextView
-                android:id="@+id/mangaTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Manga Reader"
-                style="@style/AppTitleText"/>
-
-        </ScrollView>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Manga Reader" />
 
         <ImageButton
             android:id="@+id/backBtn"

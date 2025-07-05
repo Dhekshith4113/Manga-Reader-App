@@ -8,7 +8,7 @@
 
     <style name="AppBaseText">
         <item name="android:fontFamily">@font/minima_font_family</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 

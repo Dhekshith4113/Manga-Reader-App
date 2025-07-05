@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="18dp"
@@ -16,40 +15,24 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="8dp"
         android:background="@color/divider_grey" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/openFileOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="Open File"
-            app:srcCompat="@drawable/sharp_add_24"
-            android:background="@android:color/transparent"
-            app:tint="@color/textColorPrimary" />
-
-        <TextView
-            android:id="@+id/openFileOption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="Open File"
-            style="@style/AppBaseText"/>
-
-    </LinearLayout>
+        android:layout_marginVertical="18dp"
+        android:layout_marginHorizontal="40dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Open File"
+        style="@style/AppBaseText"/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="2dp"
         android:background="@color/divider_grey" />
 
     <LinearLayout
@@ -78,7 +61,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="8dp"
         android:background="@color/divider_grey" />
 

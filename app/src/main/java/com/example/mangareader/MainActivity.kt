@@ -2,6 +2,7 @@ package com.example.mangareader
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -81,14 +82,18 @@ class MainActivity : AppCompatActivity() {
         if (SharedPreferencesManager.isLoadFileEnabled(this)) {
             val uriString = SharedPreferencesManager.loadUriString(this)
 
-            Handler(Looper.getMainLooper()).post {
-                uriString?.let {
-                    val uri = Uri.parse(it)
+            if (!uriString.isNullOrEmpty()) {
+                val uri = Uri.parse(uriString)
+                try {
+                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                } catch (e: SecurityException) {
+                    Toast.makeText(this, "This file is not accessible", Toast.LENGTH_SHORT).show()
+                }
+
+                Handler(Looper.getMainLooper()).post {
                     loadDocument(uri!!)
                 }
             }
-
-            SharedPreferencesManager.setLoadFileEnabled(this, false)
         }
     }
 
@@ -261,7 +266,6 @@ class MainActivity : AppCompatActivity() {
             SharedPreferencesManager.setRecreateEnabled(this, true)
             btnSingle.isChecked = !isDoublePage
             btnDouble.isChecked = isDoublePage
-
             reloadViewPager()
         }
 

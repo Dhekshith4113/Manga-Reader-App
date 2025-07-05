@@ -30,23 +30,15 @@
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/textColorPrimary" />
 
-        <HorizontalScrollView
+        <TextView
+            android:id="@+id/mangaTitle"
+            style="@style/AppTitleText"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            android:scrollbars="vertical">
-
-            <TextView
-                android:id="@+id/mangaTitle"
-                style="@style/AppTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Manga Reader" />
-
-        </HorizontalScrollView>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Manga Reader" />
 
         <ImageButton
             android:id="@+id/settingsBtn"
